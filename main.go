@@ -23,7 +23,7 @@ func main() {
 	if num == 0 {
 		num = 6
 	}
-	if memory := make([]byte, use*num); memory == nil {
+	if memory := make([]byte, use*uint64(num)); memory == nil {
 		fmt.Println("Failed to allocate memory!")
 	} else {
 		fmt.Println("Done!")
