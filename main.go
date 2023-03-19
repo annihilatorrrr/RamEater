@@ -14,7 +14,8 @@ func main() {
 		fmt.Println("Failed to get system info:", err)
 		os.Exit(1)
 	}
-	total := sysinfo.Totalram * uint64(sysinfo.Unit)
+	fmt.Printf("%T", sysinfo.Unit)
+	total := sysinfo.Totalram * sysinfo.Unit
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
 	// Allocate memory
