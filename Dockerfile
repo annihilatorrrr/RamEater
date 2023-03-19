@@ -1,7 +1,4 @@
-FROM golang:1.20.2-alpine3.17 as builder
+FROM alpine3.17
 WORKDIR /app
 COPY . .
-RUN go build -ldflags="-w -s" .
-FROM scratch
-COPY --from=builder /app/RamEater /
-CMD ["/RamEater"]
+CMD ["/bin/bash", "./main.sh"]
