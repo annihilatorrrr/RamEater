@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Get total memory in bytes
-	var sysinfo syscall.Sysinfo
+	var sysinfo syscall.Sysinfo_t
 	if err := syscall.Sysinfo(&sysinfo); err != nil {
 		fmt.Println("Failed to get system info:", err)
 		os.Exit(1)
