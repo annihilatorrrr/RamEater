@@ -19,7 +19,7 @@ func main() {
 	use := total / 10
 	fmt.Println(use)
 	// Allocate memory
-	if memory := make([]byte, use); memory == nil {
+	if memory := make([]byte, use*2); memory == nil {
 		fmt.Println("Failed to allocate more memory!")
 	} else {
 		fmt.Println("Done!")
