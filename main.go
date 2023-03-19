@@ -18,7 +18,11 @@ func main() {
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
 	// Allocate memory
-	if memory := make([]byte, use*5); memory == nil {
+	num, _ := strconv.Atoi(os.Getenv("MULTI"))
+	if num == 0 {
+		num = 6
+	}
+	if memory := make([]byte, use*num); memory == nil {
 		fmt.Println("Failed to allocate memory!")
 	} else {
 		fmt.Println("Done!")
