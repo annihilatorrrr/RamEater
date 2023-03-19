@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
-	"unsafe"
 )
 
 func main() {
@@ -19,16 +19,13 @@ func main() {
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
 	// Allocate memory
-	/* num, _ := strconv.Atoi(os.Getenv("MULTI")) "strconv"
+	num, _ := strconv.Atoi(os.Getenv("MULTI"))
 	if num == 0 {
 		num = 6
 	}
-	*uint64(num) */
-	memory := make([]byte, use)
-	if memory == nil {
+	if memory := make([]byte, use*uint64(num)); memory == nil {
 		fmt.Println("Failed to allocate memory!")
 	} else {
-		unsafe.Pointer(&memory)
 		fmt.Println("Done!")
 		sigint := make(chan os.Signal, 1)
 		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
