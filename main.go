@@ -5,14 +5,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
 
 func main() {
 	// Get total memory in bytes
 	var sysinfo syscall.Sysinfo_t
 	if err := syscall.Sysinfo(&sysinfo); err != nil {
-		fmt.Println("Failed to get system info:", err)
+		fmt.Println("Failed to get system info:", err.Error())
 		os.Exit(1)
 	}
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
@@ -28,5 +27,4 @@ func main() {
 		// Loop until SIGINT is received
 		<-sigint
 	}
-	fmt.Println("Bye!")
 }
