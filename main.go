@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/signal"
 	"syscall"
 	"time"
 )
@@ -17,14 +18,15 @@ func main() {
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
-	fmt.Println(use/(1024 * 1024 * 1024))
 	// Allocate memory
-	if memory := make([]byte, use); memory == nil {
+	if memory := make([]byte, use*5); memory == nil {
 		fmt.Println("Failed to allocate memory!")
 	} else {
 		fmt.Println("Done!")
-		for {
-			time.Sleep(1000)
-		}
+		sigint := make(chan os.Signal, 1)
+		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
+		// Loop until SIGINT is received
+		<-sigint
 	}
+	fmt.Println("Bye!")
 }
