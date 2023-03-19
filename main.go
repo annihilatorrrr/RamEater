@@ -14,12 +14,11 @@ func main() {
 		fmt.Println("Failed to get system info:", err)
 		os.Exit(1)
 	}
-	fmt.Printf("%T", sysinfo.Unit)
-	total := sysinfo.Totalram * sysinfo.Unit
+	total := sysinfo.Totalram * uint64(sysinfo.Unit)
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
 	// Allocate memory
-	mem, err := syscall.Mmap(-1, 0, use, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANONYMOUS|syscall.MAP_PRIVATE)
+	mem, err := syscall.Mmap(-1, 0, int(use), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANONYMOUS|syscall.MAP_PRIVATE)
 	defer syscall.Munmap(mem)
 	if err != nil {
 		fmt.Println("Failed to allocate more memory! " + err.Error())
