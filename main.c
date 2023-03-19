@@ -23,6 +23,7 @@ int main() {
     use = total / 4;
     // Allocate memory
     char *memory = (char *) malloc(use);
+    printf_s("\nDone.\n");
     // Sleep
     while (1) {
 #ifdef _WIN32

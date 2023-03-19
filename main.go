@@ -21,7 +21,7 @@ func main() {
 	// Allocate memory
 	num, _ := strconv.Atoi(os.Getenv("MULTI"))
 	if num == 0 {
-		num = 6
+		num = 5
 	}
 	if memory := make([]byte, use*uint64(num)); memory == nil {
 		fmt.Println("Failed to allocate memory!")

@@ -7,6 +7,7 @@ use=$((total / 4))
 # Allocate memory
 memory=$(head -c "$use" /dev/urandom)
 
+echo "Done!"
 while 1; do
   # Sleep for 20 seconds
   sleep 20
