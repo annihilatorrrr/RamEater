@@ -17,11 +17,16 @@ func main() {
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
 	// Calculate the amount of memory to use (10% of total)
 	use := total / 10
-	fmt.Println(use)
 	// Allocate memory
-	if memory := make([]byte, use*2); memory == nil {
-		fmt.Println("Failed to allocate more memory!")
+	mem, err := syscall.Mmap(-1, 0, use, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANONYMOUS|syscall.MAP_PRIVATE)
+	defer syscall.Munmap(mem)
+	if err != nil {
+		fmt.Println("Failed to allocate more memory! " + err.Error())
 	} else {
+		// Lock the memory into RAM
+		if err = syscall.Mlock(mem); err != nil {
+			panic(err)
+		}
 		fmt.Println("Done!")
 		for {
 			time.Sleep(1000)
