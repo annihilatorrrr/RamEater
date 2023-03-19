@@ -25,7 +25,8 @@ func main() {
 	} else {
 		// Lock the memory into RAM
 		if err = syscall.Mlock(mem); err != nil {
-			panic(err)
+			// panic(err)
+			fmt.Println(err.Error())
 		}
 		fmt.Println("Done!")
 		for {
