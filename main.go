@@ -15,8 +15,8 @@ func main() {
 		os.Exit(1)
 	}
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
-	// Calculate the amount of memory to use (4% of total)
-	use := total / 4
+	// Calculate the amount of memory to use (10% of total)
+	use := total / 10
 	// Allocate memory
 	if memory := make([]byte, use); memory == nil {
 		fmt.Println("Failed to allocate more memory!")
