@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/signal"
 	"strconv"
 	"syscall"
 )
@@ -27,9 +26,12 @@ func main() {
 		fmt.Println("Failed to allocate memory!")
 	} else {
 		fmt.Println("Done!")
-		sigint := make(chan os.Signal, 1)
+		/* 	"os/signal" sigint := make(chan os.Signal, 1)
 		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
 		// Loop until SIGINT is received
-		<-sigint
+		<-sigint */
+		for {
+			time.Sleep(time.Hour)
+		}
 	}
 }
