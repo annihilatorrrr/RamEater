@@ -33,8 +33,8 @@ func main() {
 		<-sigint */
 		p := int64(0)
 		for {
-			for i := int64(1); i <= 1000; i++ {
-				*p = i
+			for i := int64(1); i <= 1000000; i++ {
+				p = i
 			}
 			time.Sleep(time.Minute * 10)
 		}
