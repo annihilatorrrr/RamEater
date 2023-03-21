@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"syscall"
 	"time"
+	"runtime"
 )
 
 func main() {
@@ -33,11 +34,20 @@ func main() {
 		<-sigint */
 		time.Sleep(time.Second * 10)
 		for {
-			p := int64(0)
-			for i := int64(1); i <= 10000000; i++ {
-				p = i
+			done := make(chan int)
+			for i := 0; i < runtime.NumCPU(); i++ {
+				go func() {
+					for {
+						select {
+						case <-done:
+							return
+						default:
+						}
+					}
+				}()
 			}
-			fmt.Printf("Cpu waste data: %d\n", p)
+			time.Sleep(time.Second * 10)
+			close(done)
 			time.Sleep(time.Minute * 10)
 		}
 		
