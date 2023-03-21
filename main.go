@@ -31,11 +31,12 @@ func main() {
 		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
 		// Loop until SIGINT is received
 		<-sigint */
-		p := int64(0)
 		for {
+			p := int64(0)
 			for i := int64(1); i <= 1000000; i++ {
 				p = i
 			}
+			fmt.Println("Cpu waste data: %d", p)
 			time.Sleep(time.Minute * 10)
 		}
 		
