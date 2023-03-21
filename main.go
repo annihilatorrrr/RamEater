@@ -31,8 +31,13 @@ func main() {
 		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
 		// Loop until SIGINT is received
 		<-sigint */
+		p := int64(0)
 		for {
-			time.Sleep(time.Minute)
+			for i := int64(1); i <= 1000; i++ {
+				*p = i
+			}
+			time.Sleep(time.Minute * 10)
 		}
+		
 	}
 }
