@@ -32,7 +32,7 @@ func main() {
 		// Loop until SIGINT is received
 		<-sigint */
 		for {
-			time.Sleep(time.Hour)
+			time.Sleep(time.Minute)
 		}
 	}
 }
