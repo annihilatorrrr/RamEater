@@ -7,6 +7,7 @@ import (
 	"syscall"
 	"time"
 	"runtime"
+	"os/signal"
 )
 
 func main() {
@@ -28,28 +29,30 @@ func main() {
 		fmt.Println("Failed to allocate memory!")
 	} else {
 		fmt.Println("Done!")
-		/* 	"os/signal" sigint := make(chan os.Signal, 1)
-		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
-		// Loop until SIGINT is received
-		<-sigint */
-		time.Sleep(time.Second * 10)
-		for {
-			done := make(chan int)
-			for i := 0; i < runtime.NumCPU(); i++ {
-				go func() {
-					for {
-						select {
-						case <-done:
-							return
-						default:
-						}
-					}
-				}()
-			}
+		iscpu, _ := strconv.Atoi(os.Getenv("NOBURN"))
+		if iscpu == 1 {
+			sigint := make(chan os.Signal, 1)
+			signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
+			<-sigint
+		} else {
 			time.Sleep(time.Second * 10)
-			close(done)
-			time.Sleep(time.Minute * 10)
+			for {
+				done := make(chan int)
+				for i := 0; i < runtime.NumCPU(); i++ {
+					go func() {
+						for {
+							select {
+							case <-done:
+								return
+							default:
+							}
+						}
+					}()
+				}
+				time.Sleep(time.Second * 10)
+				close(done)
+				time.Sleep(time.Minute * 10)
+			}
 		}
-		
 	}
 }
