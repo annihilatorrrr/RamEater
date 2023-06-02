@@ -7,4 +7,4 @@ RUN upx /RamEater/RamEater
 FROM alpine:3.18.0
 RUN apk update && apk upgrade --available && sync
 COPY --from=builder /RamEater/RamEater /RamEater
-CMD ["/RamEater"]
+ENTRYPOINT ["/RamEater"]
