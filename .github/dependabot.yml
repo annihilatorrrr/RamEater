@@ -1,5 +1,13 @@
 version: 2
 updates:
+- package-ecosystem: gomod
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "23:30"
+    timezone: "Asia/Kolkata"
+  open-pull-requests-limit: 10
+  target-branch: main
 - package-ecosystem: docker
   directory: "/"
   schedule:
