@@ -4,7 +4,7 @@ WORKDIR /RamEater
 COPY . .
 RUN go build -ldflags="-w -s" .
 RUN upx /RamEater/RamEater
-FROM alpine:3.18.5
+FROM alpine:3.19.0
 RUN apk update && apk upgrade --available && sync
 COPY --from=builder /RamEater/RamEater /RamEater
 ENTRYPOINT ["/RamEater"]
