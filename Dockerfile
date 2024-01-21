@@ -1,4 +1,3 @@
-FROM alpine:3.19.0
 # FROM golang:1.21.6-alpine3.19 as builder
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 # WORKDIR /RamEater
