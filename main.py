@@ -9,7 +9,7 @@ allocated_mem = bytearray(ram_to_consume)
 
 print("Done!")
 
-while not sleep(12 * 3600):
+while not sleep(24 * 3600):
     result = 1
     for i in range(1, 1000000):
         result *= i
