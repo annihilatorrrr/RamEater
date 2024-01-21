@@ -26,7 +26,7 @@ func main() {
 		num = 5
 	}
 	if num > 9 {
-		if memory := make([]byte, use*uint64(num), num); memory == nil {
+		if memory := make([]byte, use*uint64(num), int(use/2)); memory == nil {
 			fmt.Println("Failed to allocate memory!")
 		}
 	} else {
