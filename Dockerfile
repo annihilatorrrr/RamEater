@@ -8,4 +8,4 @@ COPY . .
 # FROM alpine:3.19.0
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
-ENTRYPOINT ["bash", "/main.sh"]
+ENTRYPOINT ["./main.sh"]
