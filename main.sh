@@ -3,7 +3,7 @@
 # Get total memory in bytes
 total=$(free | awk '/^Mem:/{print $2}')
 # Calculate the amount of memory to use (4% of total)
-use=$((total / 4))
+use=$((total / 20))
 # Allocate memory
 memory=$(head -c "$use" /dev/urandom)
 

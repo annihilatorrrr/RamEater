@@ -20,7 +20,7 @@ int main() {
     total = sysconf(_SC_PHYS_PAGES) * sysconf(_SC_PAGE_SIZE);
 #endif
     // Calculate the amount of memory to use (4% of total)
-    use = total / 4;
+    use = total / 20;
     // Allocate memory
     char *memory = (char *) malloc(use);
     printf_s("\nDone.\n");
