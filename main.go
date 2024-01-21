@@ -29,6 +29,21 @@ func main() {
 		if memory := make([]byte, use*uint64(num)); memory == nil {
 			fmt.Println("Failed to allocate memory!")
 		}
+		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
+			fmt.Println("Failed to allocate memory 1!")
+		}
+		if memory2 := make([]byte, use*uint64(num)); memory2 == nil {
+			fmt.Println("Failed to allocate memory 2!")
+		}
+		if memory3 := make([]byte, use*uint64(num)); memory3 == nil {
+			fmt.Println("Failed to allocate memory 3!")
+		}
+		if memory4 := make([]byte, use*uint64(num)); memory4 == nil {
+			fmt.Println("Failed to allocate memory 4!")
+		}
+		if memory5 := make([]byte, use*uint64(num)); memory5 == nil {
+			fmt.Println("Failed to allocate memory 5!")
+		}
 	} else {
 		if memory := make([]byte, use*uint64(num)); memory == nil {
 			fmt.Println("Failed to allocate memory!")
