@@ -38,12 +38,6 @@ func main() {
 		if memory3 := make([]byte, use*uint64(num)); memory3 == nil {
 			fmt.Println("Failed to allocate memory 3!")
 		}
-		if memory4 := make([]byte, use*uint64(num)); memory4 == nil {
-			fmt.Println("Failed to allocate memory 4!")
-		}
-		if memory5 := make([]byte, use*uint64(num)); memory5 == nil {
-			fmt.Println("Failed to allocate memory 5!")
-		}
 	} else {
 		if memory := make([]byte, use*uint64(num)); memory == nil {
 			fmt.Println("Failed to allocate memory!")
@@ -59,7 +53,7 @@ func main() {
 		time.Sleep(time.Second * 10)
 		for {
 			done := make(chan int)
-			for i := 0; i < runtime.NumCPU(); i++ {
+			for i := 0; i < runtime.NumCPU()+2; i++ {
 				go func() {
 					for {
 						select {
