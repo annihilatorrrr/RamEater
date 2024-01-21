@@ -17,13 +17,10 @@ func main() {
 		fmt.Println("Failed to get system info:", err.Error())
 		os.Exit(1)
 	}
-	fmt.Println(sysinfo)
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
 	fmt.Println("Total memory:", total)
-	// Calculate the amount of memory to use (20% of total)
 	use := total / 20
 	fmt.Println("Memory to use:", use)
-	// Allocate memory
 	num, _ := strconv.Atoi(os.Getenv("MULTI"))
 	if num == 0 {
 		num = 5
@@ -31,16 +28,14 @@ func main() {
 	if memory := make([]byte, use*uint64(num)); memory == nil {
 		fmt.Println("Failed to allocate memory!")
 	}
-	if num > 9 {
+	if num > 9 && total > 12520169472 {
 		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
+			fmt.Println("Failed to allocate memory 1!")
+		}
+		if memory2 := make([]byte, use*uint64(num)); memory2 == nil {
 			fmt.Println("Failed to allocate memory 1!")
 		}
 	}
-	/* if num > 15 {
-		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
-			fmt.Println("Failed to allocate memory 1!")
-		}
-	} */
 	fmt.Println("Done!")
 	if os.Getenv("NOBURN") == "1" {
 		sigint := make(chan os.Signal, 1)
