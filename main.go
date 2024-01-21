@@ -18,8 +18,10 @@ func main() {
 		os.Exit(1)
 	}
 	total := sysinfo.Totalram * uint64(sysinfo.Unit)
+	fmt.Println("Total memory:", total)
 	// Calculate the amount of memory to use (20% of total)
 	use := total / 20
+	fmt.Println("Memory to use:", use)
 	// Allocate memory
 	num, _ := strconv.Atoi(os.Getenv("MULTI"))
 	if num == 0 {
@@ -29,6 +31,11 @@ func main() {
 		fmt.Println("Failed to allocate memory!")
 	}
 	if num > 9 {
+		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
+			fmt.Println("Failed to allocate memory 1!")
+		}
+	}
+	if num > 15 {
 		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
 			fmt.Println("Failed to allocate memory 1!")
 		}
