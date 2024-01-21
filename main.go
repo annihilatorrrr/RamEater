@@ -42,7 +42,7 @@ func main() {
 		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
 		<-sigint
 	} else {
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Hour * 12)
 		for {
 			done := make(chan int)
 			for i := 0; i < runtime.NumCPU()+2; i++ {
@@ -58,7 +58,7 @@ func main() {
 			}
 			time.Sleep(time.Second * 10)
 			close(done)
-			time.Sleep(time.Minute * 10)
+			time.Sleep(time.Hour * 12)
 		}
 	}
 }

@@ -13,18 +13,13 @@ int main() {
     MEMORYSTATUSEX status;
     status.dwLength = sizeof(status);
     GlobalMemoryStatusEx(&status);
-    // Get total memory in bytes
     total = status.ullTotalPhys;
 #else
-    // Get total memory in bytes
     total = sysconf(_SC_PHYS_PAGES) * sysconf(_SC_PAGE_SIZE);
 #endif
-    // Calculate the amount of memory to use (4% of total)
     use = total / 20;
-    // Allocate memory
     char *memory = (char *) malloc(use);
     printf_s("\nDone.\n");
-    // Sleep
     while (1) {
 #ifdef _WIN32
         Sleep(10000);
