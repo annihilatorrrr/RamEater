@@ -3,9 +3,10 @@ FROM alpine:3.19.0
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 WORKDIR /RamEater
 COPY . .
+RUN chmod +x /main.sh
 # RUN go build -ldflags="-w -s" .
 # RUN upx /RamEater/RamEater
 # FROM alpine:3.19.0
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
-ENTRYPOINT ["./main.sh"]
+ENTRYPOINT ["/main.sh"]
