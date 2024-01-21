@@ -9,4 +9,5 @@ RUN chmod +x ./main.sh
 # FROM alpine:3.19.0
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
-ENTRYPOINT ["/main.sh"]
+RUN ls
+ENTRYPOINT ["ls", "&&", "./main.sh"]
