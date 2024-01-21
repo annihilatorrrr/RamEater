@@ -26,14 +26,8 @@ func main() {
 		num = 5
 	}
 	if num > 9 {
-		timesofrun := num / 2
-		var memories [][]byte
-		for i := 0; i < timesofrun; i++ {
-			memory := make([]byte, use)
-			memories = append(memories, memory)
-			if memory == nil {
-				fmt.Printf("Failed to allocate memory for %d times !\n", i)
-			}
+		if memory := make([]byte, use*uint64(num), num); memory == nil {
+			fmt.Println("Failed to allocate memory!")
 		}
 	} else {
 		if memory := make([]byte, use*uint64(num)); memory == nil {
