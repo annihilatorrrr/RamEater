@@ -4,7 +4,7 @@ FROM alpine:3.19.0
 # WORKDIR /RamEater
 COPY main.sh /main.sh
 RUN chmod +x /main.sh
-CMD ["/main.sh"]
+CMD ["./main.sh"]
 # COPY . .
 # RUN go build -ldflags="-w -s" .
 # RUN upx /RamEater/RamEater
