@@ -11,7 +11,7 @@
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
 
-FROM python:3.12.1-alpine3.19
+FROM python:3.12.2-alpine3.19
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 WORKDIR /Eater
