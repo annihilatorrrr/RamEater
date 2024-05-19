@@ -4,9 +4,18 @@ from time import sleep
 
 from psutil import virtual_memory
 
-ram_to_consume = int(virtual_memory().total * float(f"0.{int(TAKE) if (TAKE := environ.get("TAKE")) else 15}"))
-allocated_mem = bytearray(ram_to_consume)
 
+def ram_to_consume():
+    if memory_to_allocate := virtual_memory().total * float(f"0.{int(TAKE) if (TAKE := environ.get("TAKE")) else 15}") - virtual_memory().used:
+        allocated_mem = bytearray(int(memory_to_allocate))
+        print(f"Allocated {len(allocated_mem)} bytes to reach target memory usage.")
+        return allocated_mem
+    else:
+        print("No need to allocate memory.")
+        return None
+
+
+allocated_mem = ram_to_consume()
 print("Done!")
 
 while not sleep(24 * 3600):
