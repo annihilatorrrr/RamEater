@@ -10,9 +10,10 @@ allocated_mem = bytearray(ram_to_consume)
 print("Done!")
 
 while not sleep(24 * 3600):
-    result = 1
-    for i in range(1, 1000000):
-        result *= i
+    if not environ.get("NOCPUB"):
+        result = 1
+        for i in range(1, 1000000):
+            result *= i
     args = [
         executable,
         "main.py" if path.isfile("main.py") else "main.pyc",
