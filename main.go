@@ -1,64 +1,63 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
-	"os/signal"
-	"runtime"
+	"os/exec"
 	"strconv"
-	"syscall"
 	"time"
+
+	"github.com/shirou/gopsutil/mem"
 )
 
-func main() {
-	// Get total memory in bytes
-	var sysinfo syscall.Sysinfo_t
-	if err := syscall.Sysinfo(&sysinfo); err != nil {
-		fmt.Println("Failed to get system info:", err.Error())
-		os.Exit(1)
+func ramToConsume() []byte {
+	v, err := mem.VirtualMemory()
+	if err != nil {
+		fmt.Println("Error retrieving virtual memory info:", err)
+		return nil
 	}
-	total := sysinfo.Totalram * uint64(sysinfo.Unit)
-	fmt.Println("Total memory:", total)
-	use := total / 20
-	fmt.Println("Memory to use:", use)
-	num, _ := strconv.Atoi(os.Getenv("MULTI"))
-	if num == 0 {
-		num = 5
-	}
-	if memory := make([]byte, use*uint64(num)); memory == nil {
-		fmt.Println("Failed to allocate memory!")
-	}
-	if num > 9 && total > 12520169472 {
-		if memory1 := make([]byte, use*uint64(num)); memory1 == nil {
-			fmt.Println("Failed to allocate memory 1!")
-		}
-		if memory2 := make([]byte, use*uint64(num)); memory2 == nil {
-			fmt.Println("Failed to allocate memory 1!")
+	takeEnv := os.Getenv("TAKE")
+	take := 15
+	if takeEnv != "" {
+		take, err = strconv.Atoi(takeEnv)
+		if err != nil {
+			fmt.Println("Error parsing TAKE environment variable:", err)
+			take = 15
 		}
 	}
-	fmt.Println("Done!")
-	if os.Getenv("NOBURN") == "1" {
-		sigint := make(chan os.Signal, 1)
-		signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
-		<-sigint
+	memoryToAllocate := float64(v.Total)*float64(take)/100.0 - float64(v.Used)
+	if memoryToAllocate > 0 {
+		allocatedMem := bytes.Repeat([]byte{0}, int(memoryToAllocate))
+		fmt.Printf("Allocated %d bytes to reach target memory usage.\n", len(allocatedMem))
+		return allocatedMem
 	} else {
-		time.Sleep(time.Hour * 12)
-		for {
-			done := make(chan int)
-			for i := 0; i < runtime.NumCPU()+2; i++ {
-				go func() {
-					for {
-						select {
-						case <-done:
-							return
-						default:
-						}
-					}
-				}()
+		fmt.Println("No need to allocate memory.")
+		return nil
+	}
+}
+
+func main() {
+	_ = ramToConsume()
+	fmt.Println("Done!")
+	for {
+		time.Sleep(24 * time.Hour)
+		if os.Getenv("NOCPUB") == "" {
+			result := 1
+			for i := 1; i < 1000000; i++ {
+				result *= i
 			}
-			time.Sleep(time.Second * 10)
-			close(done)
-			time.Sleep(time.Hour * 12)
+		}
+		args := []string{"main.go"}
+		if _, err := os.Stat("main.go"); os.IsNotExist(err) {
+			args[0] = "main"
+		}
+		cmd := exec.Command(os.Args[0], args...)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		cmd.Stdin = os.Stdin
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error re-executing the program:", err)
 		}
 	}
 }
