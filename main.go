@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strconv"
@@ -14,7 +14,7 @@ import (
 func ramToConsume() []byte {
 	v, err := mem.VirtualMemory()
 	if err != nil {
-		fmt.Println("Error retrieving virtual memory info:", err)
+		log.Println("Error retrieving virtual memory info:", err)
 		return nil
 	}
 	takeEnv := os.Getenv("TAKE")
@@ -22,24 +22,24 @@ func ramToConsume() []byte {
 	if takeEnv != "" {
 		take, err = strconv.Atoi(takeEnv)
 		if err != nil {
-			fmt.Println("Error parsing TAKE environment variable:", err)
+			log.Println("Error parsing TAKE environment variable:", err)
 			take = 15
 		}
 	}
 	memoryToAllocate := float64(v.Total)*float64(take)/100.0 - float64(v.Used)
 	if memoryToAllocate > 0 {
 		allocatedMem := bytes.Repeat([]byte{0}, int(memoryToAllocate))
-		fmt.Printf("Allocated %d bytes to reach target memory usage.\n", len(allocatedMem))
+		log.Printf("Allocated %d bytes to reach target memory usage.\n", len(allocatedMem))
 		return allocatedMem
 	} else {
-		fmt.Println("No need to allocate memory.")
+		log.Println("No need to allocate memory.")
 		return nil
 	}
 }
 
 func main() {
 	_ = ramToConsume()
-	fmt.Println("Done!")
+	log.Println("Done!")
 	for {
 		time.Sleep(24 * time.Hour)
 		if os.Getenv("NOCPUB") == "" {
@@ -57,7 +57,7 @@ func main() {
 		cmd.Stderr = os.Stderr
 		cmd.Stdin = os.Stdin
 		if err := cmd.Run(); err != nil {
-			fmt.Println("Error re-executing the program:", err)
+			log.Println("Error re-executing the program:", err)
 		}
 	}
 }

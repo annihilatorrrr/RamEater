@@ -1,5 +1,6 @@
 **
-!*.mod
+!go.sum
+!go.mod
 !*.go
 !*.c
 !*.py
