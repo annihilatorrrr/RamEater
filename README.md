@@ -1,6 +1,6 @@
 # RamEater
-A repo containing scripts in (c, go, bash) to increase ram usage.
+A repo containing scripts in (py, c, go, bash) to increase ram usage and cpu usage by desired %.
 
-**Not working as excepted!**
+**Working as Excepted!**
 
 _Only for linux systems!_
