@@ -1,4 +1,4 @@
-# FROM golang:1.21.6-alpine3.19 as builder
+# FROM golang:1.22.4-alpine3.20 as builder
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 # WORKDIR /RamEater
 # COPY main.sh /main.sh
@@ -7,11 +7,11 @@
 # COPY . .
 # RUN go build -ldflags="-w -s" .
 # RUN upx /RamEater/RamEater
-# FROM alpine:3.19.0
+# FROM alpine:3.20.0
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
 
-FROM python:3.12.4-alpine3.19
+FROM python:3.12.4-alpine3.20
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 WORKDIR /Eater
