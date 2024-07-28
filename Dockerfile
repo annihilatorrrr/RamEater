@@ -1,4 +1,4 @@
-# FROM golang:1.22.4-alpine3.20 as builder
+# FROM golang:1.22.5-alpine3.20 as builder
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 # WORKDIR /RamEater
 # COPY main.sh /main.sh
