@@ -1,0 +1,15 @@
+[dependencies]
+sysinfo = "0.32.0"
+
+[profile.release]
+lto = true
+opt-level = "s"
+incremental = true
+strip = true
+panic = "unwind"
+
+[package]
+name = "Eater"
+version = "0.0.1"
+include = ["/src"]
+edition = "2021"
