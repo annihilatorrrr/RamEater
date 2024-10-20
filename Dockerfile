@@ -11,7 +11,7 @@
 # RUN apk update && apk upgrade --available && sync
 # COPY --from=builder /RamEater/RamEater /RamEater
 
-# FROM rust:1.81.0-alpine3.20 as builder
+# FROM rust:1.82.0-alpine3.20 as builder
 # WORKDIR /Eater
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps musl-dev libressl-dev build-base pkgconfig
 # COPY . .
