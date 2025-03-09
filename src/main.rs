@@ -1,5 +1,5 @@
 use std::env;
-use std::process::{Command, exit};
+use std::process::{exit, Command};
 use std::thread::sleep;
 use std::time::Duration;
 use sysinfo::System;
@@ -16,7 +16,10 @@ fn ram_to_consume() -> Option<Vec<u8>> {
     let memory_to_allocate = (total_memory as f64 * take_percentage) - used_memory as f64;
     if memory_to_allocate > 0.0 {
         let allocated_mem = vec![0_u8; memory_to_allocate as usize];
-        println!("Allocated {} bytes to reach target memory usage.", allocated_mem.len());
+        println!(
+            "Allocated {} bytes to reach target memory usage.",
+            allocated_mem.len()
+        );
         Some(allocated_mem)
     } else {
         println!("No need to allocate memory.");
@@ -42,4 +45,3 @@ fn main() {
         exit(0);
     }
 }
-
