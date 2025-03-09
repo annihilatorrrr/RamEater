@@ -1,17 +1,17 @@
-# FROM golang:1.23.2-alpine3.20 as builder
+# FROM golang:1.24.1-alpine3.21 AS builder
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 # WORKDIR /RamEater
 # COPY main.sh /main.sh
 # RUN chmod +x /main.sh
 # CMD ["./main.sh"]
 # COPY . .
-# RUN go build -ldflags="-w -s" .
+# RUN go build -trimpath -ldflags="-w -s" .
 # RUN upx /RamEater/RamEater
-# FROM alpine:3.20.0
-# RUN apk update && apk upgrade --available && sync
+# FROM scratch
 # COPY --from=builder /RamEater/RamEater /RamEater
+# ENTRYPOINT ["/RamEater"]
 
-# FROM rust:1.82.0-alpine3.20 as builder
+# FROM rust:1.82.0-alpine3.21 AS builder
 # WORKDIR /Eater
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps musl-dev libressl-dev build-base pkgconfig
 # COPY . .
