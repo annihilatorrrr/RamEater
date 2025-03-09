@@ -1,6 +1,6 @@
 module RamEater
 
-go 1.22.5
+go 1.24.1
 
 require github.com/shirou/gopsutil v3.21.11+incompatible
 
