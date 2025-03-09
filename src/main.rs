@@ -2,7 +2,7 @@ use std::env;
 use std::process::{Command, exit};
 use std::thread::sleep;
 use std::time::Duration;
-use sysinfo::{System};
+use sysinfo::System;
 
 fn ram_to_consume() -> Option<Vec<u8>> {
     let mut system = System::new_all();
