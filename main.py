@@ -8,12 +8,12 @@ from psutil import virtual_memory
 def ram_to_consume():
     memory_to_allocate = virtual_memory().total * float(f"0.{int(TAKE) if (TAKE := environ.get("TAKE")) else 15}") - virtual_memory().used
     if memory_to_allocate > 0:
-        allocated_mem = bytearray(int(memory_to_allocate))
-        print(f"Allocated {len(allocated_mem)} bytes to reach target memory usage.")
-        return allocated_mem
+        allocated_memo = bytearray(int(memory_to_allocate))
+        print(f"Allocated {len(allocated_memo)} bytes to reach target memory usage.")
+        return allocated_memo
     else:
         print("No need to allocate memory.")
-        return None
+    return None
 
 
 allocated_mem = ram_to_consume()
