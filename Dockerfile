@@ -1,4 +1,4 @@
-# FROM golang:1.25.1-alpine3.22 AS builder
+# FROM golang:1.25.1-alpine3.23 AS builder
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps upx
 # WORKDIR /RamEater
 # COPY main.sh /main.sh
@@ -11,7 +11,7 @@
 # COPY --from=builder /RamEater/RamEater /RamEater
 # ENTRYPOINT ["/RamEater"]
 
-# FROM rust:1.82.0-alpine3.22 AS builder
+# FROM rust:1.82.0-alpine3.23 AS builder
 # WORKDIR /Eater
 # RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps musl-dev libressl-dev build-base pkgconfig
 # COPY . .
@@ -21,7 +21,7 @@
 # COPY --from=builder /Eater/target/release/Eater /Eater
 # ENTRYPOINT ["/Eater"]
 
-FROM python:3.14.3-alpine3.22
+FROM python:3.14.3-alpine3.23
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 WORKDIR /Eater
