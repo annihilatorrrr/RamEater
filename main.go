@@ -48,11 +48,7 @@ func main() {
 				result *= i
 			}
 		}
-		args := []string{"main.go"}
-		if _, err := os.Stat("main.go"); os.IsNotExist(err) {
-			args[0] = "main"
-		}
-		cmd := exec.Command(os.Args[0], args...)
+		cmd := exec.Command(os.Args[0], os.Args[1:]...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		cmd.Stdin = os.Stdin

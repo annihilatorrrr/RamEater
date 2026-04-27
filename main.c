@@ -13,8 +13,8 @@ void allocate_memory() {
     const char *take_str = getenv("TAKE");
     int take = take_str ? atoi(take_str) : 15;
 
-    unsigned long total_memory = info.totalram;
-    unsigned long used_memory = info.totalram - info.freeram;
+    unsigned long total_memory = info.totalram * info.mem_unit;
+    unsigned long used_memory = (info.totalram - info.freeram) * info.mem_unit;
     unsigned long memory_to_allocate = total_memory * (take / 100.0) - used_memory;
 
     if (memory_to_allocate > 0) {

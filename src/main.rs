@@ -9,11 +9,12 @@ fn ram_to_consume() -> Option<Vec<u8>> {
     system.refresh_memory();
     let total_memory = system.total_memory();
     let used_memory = system.used_memory();
-    let take_value = env::var("TAKE").unwrap_or_else(|_| "15".to_string());
-    let take_percentage: f64 = format!("0.{}", take_value.parse::<i32>().unwrap_or(15))
-        .parse()
-        .unwrap_or(0.15);
-    let memory_to_allocate = (total_memory as f64 * take_percentage) - used_memory as f64;
+    let take: f64 = env::var("TAKE")
+        .ok()
+        .and_then(|v| v.parse::<u32>().ok())
+        .unwrap_or(15) as f64
+        / 100.0;
+    let memory_to_allocate = (total_memory as f64 * take) - used_memory as f64;
     if memory_to_allocate > 0.0 {
         let allocated_mem = vec![0_u8; memory_to_allocate as usize];
         println!(
@@ -33,9 +34,9 @@ fn main() {
     loop {
         sleep(Duration::from_secs(24 * 3600));
         if env::var("NOCPUB").is_err() {
-            let mut _result: u64 = 1;
-            for i in 1..1_000_000 {
-                _result *= i;
+            let mut result: u64 = 1;
+            for i in 1u64..1_000_000 {
+                result = result.wrapping_mul(i);
             }
         }
         let current_exe = env::current_exe().expect("Failed to get current executable path");

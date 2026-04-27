@@ -7,7 +7,7 @@ allocate_memory() {
 
     # Calculate memory to allocate
     TAKE=${TAKE:-15}
-    MEMORY_TO_ALLOCATE=$(awk "BEGIN {print int($TOTAL_MEM * 0.$TAKE - $USED_MEM)}")
+    MEMORY_TO_ALLOCATE=$(awk "BEGIN {print int($TOTAL_MEM * $TAKE / 100 - $USED_MEM)}")
 
     if [ "$MEMORY_TO_ALLOCATE" -gt 0 ]; then
         # Allocate memory using dd
