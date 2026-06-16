@@ -21,7 +21,7 @@
 # COPY --from=builder /Eater/target/release/Eater /Eater
 # ENTRYPOINT ["/Eater"]
 
-FROM python:3.14.5-alpine3.23
+FROM python:3.14.6-alpine3.23
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 WORKDIR /Eater
